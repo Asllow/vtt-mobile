@@ -25,6 +25,10 @@ func _populate_grid(category: String) -> void:
 	current_category = category
 	_update_category_buttons()
 	
+	var root = get_parent().get_parent() if get_parent() else null
+	if root and root.has_node("Map"):
+		root.get_node("Map").current_layer_focus = category
+		
 	# Clear grid
 	for child in grid_container.get_children():
 		child.queue_free()
@@ -133,7 +137,7 @@ func _on_btn_eraser_pressed() -> void:
 			if root.has_node("Camera2D"):
 				root.get_node("Camera2D").is_brush_mode = false
 		else:
-			grid_manager.current_brush_asset = ""
+			grid_manager.current_brush_asset = "eraser"
 			grid_manager.is_brush_mode = true
 			grid_manager.is_fill_mode = false
 			_update_tool_buttons("eraser")
@@ -152,7 +156,7 @@ func _on_btn_fill_pressed() -> void:
 			if root.has_node("Camera2D"):
 				root.get_node("Camera2D").is_brush_mode = false
 		else:
-			if grid_manager.current_brush_asset != "":
+			if grid_manager.current_brush_asset != "" and grid_manager.current_brush_asset != "eraser":
 				grid_manager.is_brush_mode = true
 				grid_manager.is_fill_mode = true
 				_update_tool_buttons("fill")

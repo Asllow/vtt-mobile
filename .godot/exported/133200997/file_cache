@@ -1,6 +1,6 @@
 res://scenes/main/Main.tscn::9e19eb02d37bd8d0f2a89faff2fcd009::1790273952::res://.godot/exported/133200997/export-68a04552abb3f12a362e1db2098e38c9-Main.scn
 res://scenes/token/Token.tscn::77a8cdda41a7e2f160a54e7feb6fe14c::1790211966::res://.godot/exported/133200997/export-d4f2ed5ea39eeb2e569c2e81df07a4ad-Token.scn
 res://scenes/ui/map/MasterPalette.tscn::b8d43d37d98032cb322d9f37bcd4c8fd::1790272437::res://.godot/exported/133200997/export-ee1b6b3ff34204a2b862e7b03da6b744-MasterPalette.scn
-res://scenes/ui/menu/MainMenu.tscn::b09b5c60e41295fbd153b0b5004b1de6::1790284125::res://.godot/exported/133200997/export-95f869145c939fe649aed3539dc5a74e-MainMenu.scn
+res://scenes/ui/menu/MainMenu.tscn::0c3c45eb416fd32627cc296d370e07ac::1790284568::res://.godot/exported/133200997/export-95f869145c939fe649aed3539dc5a74e-MainMenu.scn
 res://scenes/ui/menu/SessionMenu.tscn::06a94d253bec842b40ebf0c9d12d2aec::1790271719::res://.godot/exported/133200997/export-9aab6f265ce2d9a823207b3bde716834-SessionMenu.scn
 res://scenes/ui/updater/Updater.tscn::2dd0d7c33de0472747dd8d4290248331::1790282442::res://.godot/exported/133200997/export-99a0755ea53e0cae19db0f2035c83937-Updater.scn

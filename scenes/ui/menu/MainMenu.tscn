@@ -144,14 +144,14 @@ theme_override_colors/font_color = Color(0.85, 0.7, 0.45, 1)
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_constants/shadow_offset_y = 2
 theme_override_font_sizes/font_size = 32
-text = "Mobile"
+text = "VTT Mobile"
 horizontal_alignment = 1
 
 [node name="Subtitle" type="Label" parent="MainPanel/VBoxContainer"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.65, 0.6, 0.55, 1)
 theme_override_font_sizes/font_size = 14
-text = "Atualizado via Nuvem! (v0.5.1)"
+text = "Tactical Tabletop RPG"
 horizontal_alignment = 1
 
 [node name="Spacer" type="Control" parent="MainPanel/VBoxContainer"]

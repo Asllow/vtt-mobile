@@ -23,6 +23,19 @@ var _selected_session_id: String = ""
 
 func _ready() -> void:
 	_show_panel(main_panel)
+	
+	# Load version
+	var file_path = "user://version.json"
+	if not FileAccess.file_exists(file_path):
+		file_path = "res://version.json"
+		
+	if FileAccess.file_exists(file_path):
+		var file = FileAccess.open(file_path, FileAccess.READ)
+		var json = JSON.parse_string(file.get_as_text())
+		if json and json.has("version"):
+			var version_label = $MainPanel/VBoxContainer/Version
+			if version_label:
+				version_label.text = "v" + str(json.version)
 	NetworkManager.session_found.connect(_on_session_found)
 
 func _show_panel(panel: Control) -> void:

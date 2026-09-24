@@ -11,6 +11,9 @@ var room_state := {
 }
 
 func _ready() -> void:
+	if tokens_container:
+		tokens_container.y_sort_enabled = true
+		
 	if has_node("UI/MainMenu"):
 		var menu = $UI/MainMenu
 		menu.host_requested.connect(_on_host_requested)

@@ -14,8 +14,12 @@ var _grid_data: Dictionary = {}
 var is_brush_mode: bool = false
 var is_fill_mode: bool = false
 var current_brush_asset: String = ""
+var current_layer_focus: String = "Ground"
 
 func _ready() -> void:
+	y_sort_enabled = true
+	objects_layer.y_sort_enabled = true
+	
 	if grid_layer:
 		grid_layer.map_size = map_size
 		grid_layer.queue_redraw()
@@ -88,23 +92,27 @@ func _unhandled_input(event: InputEvent) -> void:
 		var cell = world_to_grid(world_pos)
 		if is_cell_valid(cell):
 			var current_asset = ""
-			if current_brush_asset != "":
+			if current_brush_asset != "" and current_brush_asset != "eraser":
 				var a = TilesetManager.get_asset(current_brush_asset)
 				if a:
 					current_asset = _grid_data[cell][a.default_layer]
 			else:
-				# Eraser: just pick something if we want to check diff, but for eraser we can just proceed
-				pass
+				# Eraser
+				current_asset = _grid_data[cell].get(current_layer_focus, "")
 				
-			if current_asset != current_brush_asset or current_brush_asset == "":
+			if current_asset != current_brush_asset or current_brush_asset == "eraser":
 				if is_fill_mode:
-					# Somente dispara no click inicial para não repetir
-					if event is InputEventScreenTouch and event.pressed or (event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed):
-						_perform_flood_fill(cell, current_asset, current_brush_asset)
+					# O preenchimento funciona apenas para Terrenos!
+					if current_layer_focus == "Ground":
+						if event is InputEventScreenTouch and event.pressed or (event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed):
+							_perform_flood_fill(cell, current_asset, current_brush_asset)
 				else:
-					# Modo Pincel normal
-					sync_cell(cell, current_brush_asset)
-					rpc("sync_cell", cell, current_brush_asset)
+					if current_brush_asset == "eraser":
+						sync_cell_erase(cell, current_layer_focus)
+						rpc("sync_cell_erase", cell, current_layer_focus)
+					else:
+						sync_cell(cell, current_brush_asset)
+						rpc("sync_cell", cell, current_brush_asset)
 
 func _perform_flood_fill(start_cell: Vector2i, target_asset: String, replacement_asset: String) -> void:
 	if target_asset == replacement_asset:
@@ -171,16 +179,27 @@ func sync_cells(cells: Array[Vector2i], asset_id: String) -> void:
 @rpc("authority", "call_local", "reliable")
 func sync_cell(cell: Vector2i, asset_id: String) -> void:
 	if asset_id == "":
-		_grid_data[cell] = {"Ground": "", "Objects": "", "Effects": ""}
-		ground_layer.set_cell(cell, -1)
-		objects_layer.set_cell(cell, -1)
-		effects_layer.set_cell(cell, -1)
 		return
 		
 	var asset = TilesetManager.get_asset(asset_id)
 	if asset:
 		_grid_data[cell][asset.default_layer] = asset_id
 		_paint_asset_on_layer(cell, asset)
+
+@rpc("authority", "call_local", "reliable")
+func sync_cell_erase(cell: Vector2i, layer_focus: String) -> void:
+	if _grid_data.has(cell):
+		_grid_data[cell][layer_focus] = ""
+	
+	match layer_focus:
+		"Ground":
+			ground_layer.set_cell(cell, -1)
+			# Para autotiling Godot, atualizar a vizinhança sem essa célula
+			ground_layer.set_cells_terrain_connect([cell], 0, -1, true)
+		"Objects":
+			objects_layer.set_cell(cell, -1)
+		"Effects":
+			effects_layer.set_cell(cell, -1)
 
 @rpc("authority", "call_local", "reliable")
 func clear_map() -> void:

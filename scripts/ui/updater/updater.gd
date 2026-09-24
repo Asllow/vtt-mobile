@@ -1,6 +1,6 @@
 extends Control
 
-const CURRENT_VERSION = "0.5.1"
+const CURRENT_VERSION = "0.5.2"
 # URL base que vai apontar pro arquivo version.json no GitHub (Raw)
 var VERSION_URL = "https://raw.githubusercontent.com/Asllow/vtt-mobile/main/version.json"
 
