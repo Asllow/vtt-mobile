@@ -1,0 +1,13 @@
+# Godot-specific ignores
+.godot/
+*.translation
+
+# Exported files
+*.apk
+*.aab
+*.exe
+*.zip
+*.tar.gz
+
+# Crash logs
+crash.log

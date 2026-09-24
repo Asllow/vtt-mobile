@@ -3,3 +3,4 @@ res://scenes/token/Token.tscn::77a8cdda41a7e2f160a54e7feb6fe14c::1790211966::res
 res://scenes/ui/map/MasterPalette.tscn::b8d43d37d98032cb322d9f37bcd4c8fd::1790272437::res://.godot/exported/133200997/export-ee1b6b3ff34204a2b862e7b03da6b744-MasterPalette.scn
 res://scenes/ui/menu/MainMenu.tscn::0c3c45eb416fd32627cc296d370e07ac::1790259691::res://.godot/exported/133200997/export-95f869145c939fe649aed3539dc5a74e-MainMenu.scn
 res://scenes/ui/menu/SessionMenu.tscn::06a94d253bec842b40ebf0c9d12d2aec::1790271719::res://.godot/exported/133200997/export-9aab6f265ce2d9a823207b3bde716834-SessionMenu.scn
+res://scenes/ui/updater/Updater.tscn::2dd0d7c33de0472747dd8d4290248331::1790282442::res://.godot/exported/133200997/export-99a0755ea53e0cae19db0f2035c83937-Updater.scn
