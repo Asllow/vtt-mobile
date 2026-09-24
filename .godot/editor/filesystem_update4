@@ -1,7 +1,0 @@
-res://scripts/network/network_manager.gd
-res://scripts/ui/menu/session_menu.gd
-res://scripts/ui/updater/updater.gd
-res://scripts/main/main.gd
-res://scripts/map/grid_manager.gd
-res://scripts/ui/map/master_palette.gd
-res://scripts/ui/menu/main_menu.gd

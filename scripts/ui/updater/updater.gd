@@ -4,9 +4,10 @@ const CURRENT_VERSION = "0.5.2"
 # URL base que vai apontar pro arquivo version.json no GitHub (Raw)
 var VERSION_URL = "https://raw.githubusercontent.com/Asllow/vtt-mobile/main/version.json"
 
-@onready var status_label: Label = $VBoxContainer/StatusLabel
-@onready var progress_bar: ProgressBar = $VBoxContainer/ProgressBar
-@onready var retry_button: Button = $VBoxContainer/RetryButton
+@onready var panel_container: PanelContainer = $PanelContainer
+@onready var status_label: Label = $PanelContainer/MarginContainer/VBoxContainer/StatusLabel
+@onready var progress_bar: ProgressBar = $PanelContainer/MarginContainer/VBoxContainer/ProgressBar
+@onready var retry_button: Button = $PanelContainer/MarginContainer/VBoxContainer/RetryButton
 
 var http_version: HTTPRequest
 var http_download: HTTPRequest
@@ -29,18 +30,15 @@ func _ready() -> void:
 	# Verifica se já temos um patch salvo de atualizações anteriores para carregar agora!
 	_inject_saved_patch()
 	
-	# Aguarda um pouquinho pra tela respirar e checa se tem algo novo
-	await get_tree().create_timer(1.0).timeout
+	# Tenta checar atualização diretamente
 	check_for_updates()
 
 func check_for_updates() -> void:
-	status_label.text = "Verificando atualizações..."
-	progress_bar.hide()
-	retry_button.hide()
-	
 	var err = http_version.request(VERSION_URL)
 	if err != OK:
-		_fail("Falha ao iniciar verificação de rede.")
+		# Se der erro logo na requisição (sem internet), vai pro jogo
+		print("Falha ao iniciar verificação de rede. Modo offline.")
+		start_game()
 
 func _on_version_request_completed(result: int, response_code: int, headers: PackedStringArray, body: PackedByteArray) -> void:
 	if result != HTTPRequest.RESULT_SUCCESS or response_code != 200:
@@ -59,14 +57,14 @@ func _on_version_request_completed(result: int, response_code: int, headers: Pac
 	
 	# Compara as strings de versão (ex: "0.5.0" vs "0.4.0")
 	if _is_version_greater(latest_version, CURRENT_VERSION) and patch_url != "":
-		# Tem atualização!
-		status_label.text = "Baixando atualização... Por favor, aguarde."
+		# Tem atualização! Mostra a tela!
+		panel_container.show()
+		status_label.text = "Baixando atualização... (" + latest_version + ")"
 		progress_bar.show()
 		progress_bar.value = 0
 		start_download()
 	else:
-		status_label.text = "Jogo atualizado!"
-		await get_tree().create_timer(0.5).timeout
+		# Jogo atualizado, sem animação
 		start_game()
 
 func _is_version_greater(v1: String, v2: String) -> bool:
@@ -125,8 +123,12 @@ func start_game() -> void:
 	get_tree().change_scene_to_file("res://scenes/main/Main.tscn")
 
 func _fail(msg: String) -> void:
+	panel_container.show()
 	status_label.text = msg
 	retry_button.show()
+	progress_bar.hide()
 
 func _on_retry_button_pressed() -> void:
+	retry_button.hide()
+	status_label.text = "Verificando..."
 	check_for_updates()
