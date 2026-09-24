@@ -1,0 +1,383 @@
+[gd_scene load_steps=10 format=3 uid="uid://df7s3a24124"]
+
+[ext_resource type="Script" path="res://scripts/ui/menu/main_menu.gd" id="1_script"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_Background"]
+bg_color = Color(0.08, 0.07, 0.08, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_Panel"]
+bg_color = Color(0.12, 0.10, 0.11, 0.95)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.35, 0.28, 0.20, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+shadow_color = Color(0, 0, 0, 0.7)
+shadow_size = 15
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ButtonNormal"]
+bg_color = Color(0.16, 0.14, 0.15, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.40, 0.32, 0.24, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+expand_margin_top = 6.0
+expand_margin_bottom = 6.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ButtonHover"]
+bg_color = Color(0.20, 0.18, 0.19, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.60, 0.48, 0.36, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+expand_margin_top = 6.0
+expand_margin_bottom = 6.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ButtonPressed"]
+bg_color = Color(0.10, 0.09, 0.10, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.30, 0.24, 0.18, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+expand_margin_top = 6.0
+expand_margin_bottom = 6.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_LineEdit"]
+bg_color = Color(0.06, 0.05, 0.06, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.25, 0.20, 0.15, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="Theme" id="Theme_DarkFantasy"]
+Button/colors/font_color = Color(0.85, 0.80, 0.70, 1)
+Button/colors/font_hover_color = Color(1, 0.95, 0.85, 1)
+Button/colors/font_pressed_color = Color(0.6, 0.55, 0.45, 1)
+Button/styles/normal = SubResource("StyleBoxFlat_ButtonNormal")
+Button/styles/hover = SubResource("StyleBoxFlat_ButtonHover")
+Button/styles/pressed = SubResource("StyleBoxFlat_ButtonPressed")
+Label/colors/font_color = Color(0.9, 0.85, 0.75, 1)
+LineEdit/colors/font_color = Color(0.9, 0.85, 0.75, 1)
+LineEdit/styles/normal = SubResource("StyleBoxFlat_LineEdit")
+PanelContainer/styles/panel = SubResource("StyleBoxFlat_Panel")
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_DarkFantasy")
+script = ExtResource("1_script")
+
+[node name="Background" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_Background")
+
+[node name="Particles" type="CPUParticles2D" parent="Background"]
+position = Vector2(640, 750)
+amount = 40
+lifetime = 6.0
+emission_shape = 3
+emission_rect_extents = Vector2(700, 50)
+direction = Vector2(0, -1)
+spread = 20.0
+gravity = Vector2(0, -15)
+initial_velocity_min = 20.0
+initial_velocity_max = 50.0
+scale_amount_min = 2.0
+scale_amount_max = 5.0
+color = Color(0.95, 0.45, 0.1, 0.6)
+
+[node name="MainPanel" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -180.0
+offset_right = 200.0
+offset_bottom = 180.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MainPanel"]
+layout_mode = 2
+theme_override_constants/separation = 25
+alignment = 1
+
+[node name="Title" type="Label" parent="MainPanel/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.85, 0.7, 0.45, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_y = 2
+theme_override_font_sizes/font_size = 32
+text = "VTT Mobile"
+horizontal_alignment = 1
+
+[node name="Subtitle" type="Label" parent="MainPanel/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.65, 0.6, 0.55, 1)
+theme_override_font_sizes/font_size = 14
+text = "Tactical Tabletop RPG"
+horizontal_alignment = 1
+
+[node name="Spacer" type="Control" parent="MainPanel/VBoxContainer"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+
+[node name="CreateTableButton" type="Button" parent="MainPanel/VBoxContainer"]
+custom_minimum_size = Vector2(250, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "CRIAR MESA"
+
+[node name="JoinTableButton" type="Button" parent="MainPanel/VBoxContainer"]
+custom_minimum_size = Vector2(250, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "ENTRAR NA MESA"
+
+[node name="SettingsButton" type="Button" parent="MainPanel/VBoxContainer"]
+custom_minimum_size = Vector2(250, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "CONFIGURAÇÕES"
+
+[node name="Version" type="Label" parent="MainPanel/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.4, 0.38, 0.35, 1)
+theme_override_font_sizes/font_size = 12
+text = "v0.1.0"
+horizontal_alignment = 1
+
+[node name="HostPanel" type="PanelContainer" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -200.0
+offset_right = 200.0
+offset_bottom = 200.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HostPanel"]
+layout_mode = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="Title" type="Label" parent="HostPanel/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.85, 0.7, 0.45, 1)
+theme_override_font_sizes/font_size = 24
+text = "CRIAR NOVA MESA"
+horizontal_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HostPanel/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="Label" type="Label" parent="HostPanel/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Nome da Mesa"
+horizontal_alignment = 1
+
+[node name="TableNameInput" type="LineEdit" parent="HostPanel/VBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(250, 40)
+layout_mode = 2
+size_flags_horizontal = 4
+placeholder_text = "Ex: A Caverna do Dragão"
+alignment = 1
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="HostPanel/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="Label" type="Label" parent="HostPanel/VBoxContainer/VBoxContainer2"]
+layout_mode = 2
+text = "Seu Apelido"
+horizontal_alignment = 1
+
+[node name="PlayerNameInput" type="LineEdit" parent="HostPanel/VBoxContainer/VBoxContainer2"]
+custom_minimum_size = Vector2(250, 40)
+layout_mode = 2
+size_flags_horizontal = 4
+placeholder_text = "Mestre"
+alignment = 1
+
+[node name="LabelGrid" type="Label" parent="HostPanel/VBoxContainer"]
+layout_mode = 2
+text = "Tamanho do Grid"
+horizontal_alignment = 1
+
+[node name="GridSizeContainer" type="HBoxContainer" parent="HostPanel/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="GridXInput" type="LineEdit" parent="HostPanel/VBoxContainer/GridSizeContainer"]
+custom_minimum_size = Vector2(60, 40)
+layout_mode = 2
+text = "20"
+alignment = 1
+
+[node name="Label" type="Label" parent="HostPanel/VBoxContainer/GridSizeContainer"]
+layout_mode = 2
+text = " × "
+
+[node name="GridYInput" type="LineEdit" parent="HostPanel/VBoxContainer/GridSizeContainer"]
+custom_minimum_size = Vector2(60, 40)
+layout_mode = 2
+text = "20"
+alignment = 1
+
+[node name="Spacer" type="Control" parent="HostPanel/VBoxContainer"]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HostPanel/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="HostBackButton" type="Button" parent="HostPanel/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(120, 50)
+layout_mode = 2
+text = "VOLTAR"
+
+[node name="HostCreateButton" type="Button" parent="HostPanel/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(120, 50)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.8, 0.4, 1)
+text = "CRIAR"
+
+[node name="ClientPanel" type="PanelContainer" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -250.0
+offset_right = 200.0
+offset_bottom = 250.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ClientPanel"]
+layout_mode = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="Title" type="Label" parent="ClientPanel/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.85, 0.7, 0.45, 1)
+theme_override_font_sizes/font_size = 24
+text = "ENTRAR NA MESA"
+horizontal_alignment = 1
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="ClientPanel/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="Label" type="Label" parent="ClientPanel/VBoxContainer/VBoxContainer2"]
+layout_mode = 2
+text = "Seu Apelido"
+horizontal_alignment = 1
+
+[node name="PlayerNameInput" type="LineEdit" parent="ClientPanel/VBoxContainer/VBoxContainer2"]
+custom_minimum_size = Vector2(250, 40)
+layout_mode = 2
+size_flags_horizontal = 4
+placeholder_text = "Jogador"
+alignment = 1
+
+[node name="LabelSessions" type="Label" parent="ClientPanel/VBoxContainer"]
+layout_mode = 2
+text = "Sessões Ativas na LAN"
+horizontal_alignment = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="ClientPanel/VBoxContainer"]
+custom_minimum_size = Vector2(300, 250)
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="SessionListPadding" type="MarginContainer" parent="ClientPanel/VBoxContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/margin_left = 6
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 6
+theme_override_constants/margin_bottom = 10
+
+[node name="SessionListContainer" type="VBoxContainer" parent="ClientPanel/VBoxContainer/ScrollContainer/SessionListPadding"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 26
+
+[node name="Spacer" type="Control" parent="ClientPanel/VBoxContainer"]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ClientPanel/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="ClientBackButton" type="Button" parent="ClientPanel/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(120, 50)
+layout_mode = 2
+text = "VOLTAR"
+
+[node name="ClientJoinButton" type="Button" parent="ClientPanel/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(120, 50)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.8, 0.4, 1)
+text = "ENTRAR"
+
+[connection signal="pressed" from="MainPanel/VBoxContainer/CreateTableButton" to="." method="_on_create_table_button_pressed"]
+[connection signal="pressed" from="MainPanel/VBoxContainer/JoinTableButton" to="." method="_on_join_table_button_pressed"]
+[connection signal="pressed" from="MainPanel/VBoxContainer/SettingsButton" to="." method="_on_settings_button_pressed"]
+[connection signal="pressed" from="HostPanel/VBoxContainer/HBoxContainer/HostBackButton" to="." method="_on_host_back_button_pressed"]
+[connection signal="pressed" from="HostPanel/VBoxContainer/HBoxContainer/HostCreateButton" to="." method="_on_host_create_button_pressed"]
+[connection signal="pressed" from="ClientPanel/VBoxContainer/HBoxContainer/ClientBackButton" to="." method="_on_client_back_button_pressed"]
+[connection signal="pressed" from="ClientPanel/VBoxContainer/HBoxContainer/ClientJoinButton" to="." method="_on_client_join_button_pressed"]

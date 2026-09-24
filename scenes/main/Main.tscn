@@ -1,0 +1,95 @@
+[gd_scene load_steps=7 format=3 uid="uid://c3q8f5s1j5k6a"]
+
+[ext_resource type="Script" path="res://scripts/main/main.gd" id="1_main"]
+[ext_resource type="Script" path="res://scripts/camera/touch_camera_2d.gd" id="1_a2b3c"]
+[ext_resource type="Script" path="res://scripts/map/grid_manager.gd" id="2_d4e5f"]
+[ext_resource type="Texture2D" path="res://assets/tilesets/tiles.png" id="3_tiles"]
+[ext_resource type="Texture2D" path="res://assets/tilesets/props.png" id="4_props"]
+[ext_resource type="PackedScene" uid="uid://df7s3a24124" path="res://scenes/ui/menu/MainMenu.tscn" id="4_menu"]
+[ext_resource type="PackedScene" uid="uid://b2x9f5a1m7n8c" path="res://scenes/ui/map/MasterPalette.tscn" id="5_palette"]
+[ext_resource type="PackedScene" uid="uid://s3ss10nm3nu" path="res://scenes/ui/menu/SessionMenu.tscn" id="6_session_menu"]
+[ext_resource type="Script" path="res://scripts/map/grid_renderer.gd" id="5_grid"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bg"]
+bg_color = Color(0.15, 0.16, 0.2, 0.95)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+shadow_size = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn"]
+bg_color = Color(0.2, 0.5, 0.9, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+expand_margin_top = 8.0
+expand_margin_bottom = 8.0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_1"]
+texture = ExtResource("3_tiles")
+texture_region_size = Vector2i(64, 64)
+0:0/0 = 0
+0:0/0/terrain_set = 0
+0:0/0/terrain = 0
+1:0/0 = 0
+1:0/0/terrain_set = 0
+1:0/0/terrain = 1
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_2"]
+texture = ExtResource("4_props")
+texture_region_size = Vector2i(64, 64)
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_1"]
+tile_size = Vector2i(64, 64)
+terrain_set_0/mode = 0
+terrain_set_0/terrain_0/name = "Grass"
+terrain_set_0/terrain_0/color = Color(0.2, 0.8, 0.2, 1)
+terrain_set_0/terrain_1/name = "Stone"
+terrain_set_0/terrain_1/color = Color(0.5, 0.5, 0.5, 1)
+sources/0 = SubResource("TileSetAtlasSource_1")
+sources/1 = SubResource("TileSetAtlasSource_2")
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_main")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(640, 360)
+script = ExtResource("1_a2b3c")
+
+[node name="Map" type="Node2D" parent="."]
+script = ExtResource("2_d4e5f")
+
+[node name="GroundLayer" type="TileMapLayer" parent="Map"]
+tile_set = SubResource("TileSet_1")
+
+[node name="ObjectsLayer" type="TileMapLayer" parent="Map"]
+tile_set = SubResource("TileSet_1")
+z_index = 1
+
+[node name="TokensLayer" type="Node2D" parent="Map"]
+z_index = 2
+
+[node name="EffectsLayer" type="TileMapLayer" parent="Map"]
+tile_set = SubResource("TileSet_1")
+z_index = 3
+
+[node name="GridLayer" type="Node2D" parent="Map"]
+z_index = 4
+script = ExtResource("5_grid")
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="MainMenu" parent="UI" instance=ExtResource("4_menu")]
+
+[node name="MasterPalette" parent="UI" instance=ExtResource("5_palette")]
+visible = false
+
+[node name="SessionMenu" parent="UI" instance=ExtResource("6_session_menu")]
+visible = false
+
+

@@ -1,0 +1,224 @@
+[gd_scene load_steps=8 format=3 uid="uid://b2x9f5a1m7n8c"]
+
+[ext_resource type="Script" path="res://scripts/ui/map/master_palette.gd" id="1_script"]
+[ext_resource type="Texture2D" path="res://assets/ui/icons/edit.svg" id="2_edit_icon"]
+[ext_resource type="Texture2D" path="res://assets/ui/icons/chevron_down.svg" id="3_chevron_icon"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_Panel"]
+bg_color = Color(0.12, 0.1, 0.11, 0.95)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.35, 0.28, 0.2, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+shadow_color = Color(0, 0, 0, 0.7)
+shadow_size = 15
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ButtonNormal"]
+bg_color = Color(0.16, 0.14, 0.15, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.4, 0.32, 0.24, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+expand_margin_top = 6.0
+expand_margin_bottom = 6.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ButtonHover"]
+bg_color = Color(0.2, 0.18, 0.19, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.6, 0.48, 0.36, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+expand_margin_top = 6.0
+expand_margin_bottom = 6.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ButtonPressed"]
+bg_color = Color(0.1, 0.09, 0.1, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.3, 0.24, 0.18, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+expand_margin_top = 6.0
+expand_margin_bottom = 6.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_Circle"]
+bg_color = Color(0.12, 0.1, 0.11, 0.95)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.4, 0.32, 0.24, 1)
+corner_radius_top_left = 30
+corner_radius_top_right = 30
+corner_radius_bottom_right = 30
+corner_radius_bottom_left = 30
+shadow_color = Color(0, 0, 0, 0.7)
+shadow_size = 5
+
+[sub_resource type="Theme" id="Theme_DarkFantasy"]
+Button/colors/font_color = Color(0.85, 0.8, 0.7, 1)
+Button/colors/font_hover_color = Color(1, 0.95, 0.85, 1)
+Button/colors/font_pressed_color = Color(0.6, 0.55, 0.45, 1)
+Button/styles/normal = SubResource("StyleBoxFlat_ButtonNormal")
+Button/styles/hover = SubResource("StyleBoxFlat_ButtonHover")
+Button/styles/pressed = SubResource("StyleBoxFlat_ButtonPressed")
+PanelContainer/styles/panel = SubResource("StyleBoxFlat_Panel")
+
+[node name="MasterPalette" type="Control"]
+layout_mode = 3
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -250.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = SubResource("Theme_DarkFantasy")
+script = ExtResource("1_script")
+
+[node name="ShowButton" type="Button" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -30.0
+offset_top = -80.0
+offset_right = 30.0
+offset_bottom = -20.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/normal = SubResource("StyleBoxFlat_Circle")
+theme_override_styles/hover = SubResource("StyleBoxFlat_Circle")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_Circle")
+icon = ExtResource("2_edit_icon")
+icon_alignment = 1
+
+[node name="SlideContainer" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="SlideContainer"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_top = 20.0
+offset_right = -20.0
+offset_bottom = -20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="SlideContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Categories" type="HBoxContainer" parent="SlideContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+theme_override_constants/separation = 15
+
+[node name="BtnGround" type="Button" parent="SlideContainer/PanelContainer/VBoxContainer/Categories"]
+layout_mode = 2
+text = " TERRENO "
+theme_override_colors/font_color = Color(1, 0.8, 0.4, 1)
+
+[node name="BtnObjects" type="Button" parent="SlideContainer/PanelContainer/VBoxContainer/Categories"]
+layout_mode = 2
+text = " OBJETOS "
+
+[node name="BtnTokens" type="Button" parent="SlideContainer/PanelContainer/VBoxContainer/Categories"]
+layout_mode = 2
+text = " TOKENS "
+
+[node name="BtnEffects" type="Button" parent="SlideContainer/PanelContainer/VBoxContainer/Categories"]
+layout_mode = 2
+text = " EFEITOS "
+
+[node name="ScrollContainer" type="ScrollContainer" parent="SlideContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="GridContainer" type="GridContainer" parent="SlideContainer/PanelContainer/VBoxContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/h_separation = 10
+theme_override_constants/v_separation = 10
+columns = 6
+
+[node name="Tools" type="HBoxContainer" parent="SlideContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+theme_override_constants/separation = 15
+
+[node name="BtnBrush" type="Button" parent="SlideContainer/PanelContainer/VBoxContainer/Tools"]
+layout_mode = 2
+text = " PINCEL "
+theme_override_colors/font_color = Color(1, 0.8, 0.4, 1)
+
+[node name="BtnEraser" type="Button" parent="SlideContainer/PanelContainer/VBoxContainer/Tools"]
+layout_mode = 2
+text = " APAGAR "
+
+[node name="BtnFill" type="Button" parent="SlideContainer/PanelContainer/VBoxContainer/Tools"]
+layout_mode = 2
+text = " PREENCHER "
+
+[node name="BtnClear" type="Button" parent="SlideContainer/PanelContainer/VBoxContainer/Tools"]
+layout_mode = 2
+text = " LIMPAR TUDO "
+theme_override_colors/font_color = Color(0.9, 0.3, 0.3, 1)
+
+[node name="HideButton" type="Button" parent="SlideContainer"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -40.0
+offset_top = 0.0
+offset_right = 0.0
+offset_bottom = 40.0
+grow_horizontal = 0
+theme_override_styles/normal = SubResource("StyleBoxFlat_Circle")
+theme_override_styles/hover = SubResource("StyleBoxFlat_Circle")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_Circle")
+icon = ExtResource("3_chevron_icon")
+icon_alignment = 1
+
+[connection signal="pressed" from="ShowButton" to="." method="_on_show_button_pressed"]
+[connection signal="pressed" from="SlideContainer/PanelContainer/VBoxContainer/Categories/BtnGround" to="." method="_on_category_pressed" binds= ["Ground"]]
+[connection signal="pressed" from="SlideContainer/PanelContainer/VBoxContainer/Categories/BtnObjects" to="." method="_on_category_pressed" binds= ["Objects"]]
+[connection signal="pressed" from="SlideContainer/PanelContainer/VBoxContainer/Categories/BtnTokens" to="." method="_on_category_pressed" binds= ["Tokens"]]
+[connection signal="pressed" from="SlideContainer/PanelContainer/VBoxContainer/Categories/BtnEffects" to="." method="_on_category_pressed" binds= ["Effects"]]
+[connection signal="pressed" from="SlideContainer/PanelContainer/VBoxContainer/Tools/BtnBrush" to="." method="_on_btn_brush_pressed"]
+[connection signal="pressed" from="SlideContainer/PanelContainer/VBoxContainer/Tools/BtnEraser" to="." method="_on_btn_eraser_pressed"]
+[connection signal="pressed" from="SlideContainer/PanelContainer/VBoxContainer/Tools/BtnFill" to="." method="_on_btn_fill_pressed"]
+[connection signal="pressed" from="SlideContainer/PanelContainer/VBoxContainer/Tools/BtnClear" to="." method="_on_btn_clear_pressed"]
+[connection signal="pressed" from="SlideContainer/HideButton" to="." method="_on_hide_button_pressed"]
