@@ -1,6 +1,6 @@
 extends Control
 
-const CURRENT_VERSION = 1
+const CURRENT_VERSION = "0.5.0"
 # URL base que vai apontar pro arquivo version.json no GitHub (Raw)
 var VERSION_URL = "https://raw.githubusercontent.com/Asllow/vtt-mobile/main/version.json"
 
@@ -54,10 +54,11 @@ func _on_version_request_completed(result: int, response_code: int, headers: Pac
 		start_game()
 		return
 		
-	var latest_version = json.get("version", CURRENT_VERSION)
+	var latest_version = str(json.get("version", CURRENT_VERSION))
 	patch_url = json.get("pck_url", "")
 	
-	if latest_version > CURRENT_VERSION and patch_url != "":
+	# Compara as strings de versão (ex: "0.5.0" vs "0.4.0")
+	if _is_version_greater(latest_version, CURRENT_VERSION) and patch_url != "":
 		# Tem atualização!
 		status_label.text = "Baixando atualização... Por favor, aguarde."
 		progress_bar.show()
@@ -67,6 +68,18 @@ func _on_version_request_completed(result: int, response_code: int, headers: Pac
 		status_label.text = "Jogo atualizado!"
 		await get_tree().create_timer(0.5).timeout
 		start_game()
+
+func _is_version_greater(v1: String, v2: String) -> bool:
+	var parts1 = v1.split(".")
+	var parts2 = v2.split(".")
+	for i in range(max(parts1.size(), parts2.size())):
+		var num1 = int(parts1[i]) if i < parts1.size() else 0
+		var num2 = int(parts2[i]) if i < parts2.size() else 0
+		if num1 > num2:
+			return true
+		elif num1 < num2:
+			return false
+	return false
 
 func start_download() -> void:
 	# O arquivo será salvo na pasta interna do aplicativo
